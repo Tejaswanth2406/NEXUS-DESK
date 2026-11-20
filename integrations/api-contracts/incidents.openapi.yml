@@ -1,0 +1,27 @@
+openapi: 3.0.3
+info:
+  title: NEXUS Desk Incident API
+  version: 1.0.0
+paths:
+  /api/x_nexus_desk/incidents:
+    post:
+      security:
+        - oauth2: [incident.write]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [shortDescription, description, category, impact, urgency]
+              properties:
+                shortDescription: {type: string, minLength: 5, maxLength: 160}
+                description: {type: string, minLength: 1, maxLength: 4000}
+                category: {type: string, enum: [network, identity, email, hardware, software, general]}
+                impact: {type: string, enum: ['1', '2', '3']}
+                urgency: {type: string, enum: ['1', '2', '3']}
+      responses:
+        '201': {description: Incident created}
+        '400': {description: Validation failed}
+        '401': {description: Authentication required}
+        '403': {description: Insufficient scope}
