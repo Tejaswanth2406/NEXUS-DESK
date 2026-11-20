@@ -1,1 +1,1 @@
-export { validateIncident } from '../../../src/domain/rules.js'
+export { validateIncident } from '../domain/rules.js'
